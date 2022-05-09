@@ -46,6 +46,7 @@ class EndangeredAnimalsTest {
         assertEquals(true, EndangeredAnimals.find(testAnimal.id).equals(testAnimal));
         assertEquals(true, EndangeredAnimals.find(secondEndangeredAnimal.id).equals(secondEndangeredAnimal));
     }
+
 }
 
 
