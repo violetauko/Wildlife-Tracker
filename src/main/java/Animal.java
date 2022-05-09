@@ -7,8 +7,11 @@ public class Animal {
     public int id;
 
     public Animal(String name) {
+        if (name.equals("")){
+            throw new IllegalArgumentException("Please enter an animal name.");
+        }
         this.name = name;
-        this.id =id;
+
     }
 
     public String getName() {

@@ -1,11 +1,14 @@
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EndangeredAnimalsTest {
     @Rule
     public DatabaseRule database = new DatabaseRule();
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     void EndangeredAnimals_instantiatesCorrectly_true() {
@@ -45,6 +48,17 @@ class EndangeredAnimalsTest {
         EndangeredAnimals secondEndangeredAnimal = EndangeredAnimals.all().get(1);
         assertEquals(true, EndangeredAnimals.find(testAnimal.id).equals(testAnimal));
         assertEquals(true, EndangeredAnimals.find(secondEndangeredAnimal.id).equals(secondEndangeredAnimal));
+    }
+    @Test
+    public void find_findEndangeredAnimalById() {
+        EndangeredAnimals secondEndangeredAnimal = EndangeredAnimals.all().get(1);
+        assertEquals(EndangeredAnimals.find(secondEndangeredAnimal.getId()), secondEndangeredAnimal);
+    }
+    @Test
+    public void feed_throwsExceptionIfFoodLevelIsAtMaxValue(){
+        exception.expect (UnsupportedOperationException.class);
+        FireMonster testFireMonster = new FireMonster("Bubbles", 1);
+        testFireMonster.feed();
     }
 
 }
