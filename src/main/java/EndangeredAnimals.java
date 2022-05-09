@@ -1,6 +1,7 @@
 import org.sql2o.Connection;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EndangeredAnimals {
     public int id;
@@ -8,6 +9,8 @@ public class EndangeredAnimals {
     private String name;
     private String health;
     private int age;
+    public String type;
+    public static final String DATABASE_TYPE="endangeredAnimal";
 
     public static final String HEALTH_HEALTHY="healthy";
     public static final String HEALTH_ILL="ill";
@@ -18,12 +21,10 @@ public class EndangeredAnimals {
     public static final String AGE_ADULT="adult";
 
     public EndangeredAnimals(String name, String health, int age) {
-        if (name.equals("") || health.equals("") || age==("")){
-            throw new IllegalArgumentException("Please enter all input fields.");
-        }
         this.name = name;
         this.health = health;
         this.age = age;
+        type=DATABASE_TYPE;
     }
 
     public int getId() {
@@ -56,11 +57,15 @@ public class EndangeredAnimals {
     }
     public int save() {
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO endangeredAnimals (name, health, age) VALUES (:name, :health, :age)";
+            if (name.equals("") || health.equals("") || Objects.equals(age, null)){
+                throw new IllegalArgumentException("Please enter all input fields.");
+            }
+            String sql = "INSERT INTO endangeredAnimals (name, health, age, type) VALUES (:name, :health, :age, :type)";
             this.id = (int) con.createQuery(sql,true)
                     .addParameter("name", this.name)
                     .addParameter("health",this.health)
                     .addParameter("age",this.age)
+                    .addParameter("type",this.type)
                     .executeUpdate()
                     .getKey();
 
@@ -68,9 +73,11 @@ public class EndangeredAnimals {
         return id;
     }
     public static List<EndangeredAnimals> all() {
-        String sql = "SELECT * FROM endangeredAnimals";
+        String sql = "SELECT * FROM animals WHERE type='endangeredAnimal";
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(EndangeredAnimals.class);
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(EndangeredAnimals.class);
         }
     }
     public static EndangeredAnimals find(int id) {
@@ -78,6 +85,7 @@ public class EndangeredAnimals {
             String sql = "SELECT * FROM endangeredAnimals where id=:id";
             EndangeredAnimals testAnimal = con.createQuery(sql)
                     .addParameter("id", id)
+                    .throwOnMappingFailure(false)
                     .executeAndFetchFirst(EndangeredAnimals.class);
             return testAnimal;
         }

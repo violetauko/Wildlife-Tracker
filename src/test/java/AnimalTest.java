@@ -1,5 +1,6 @@
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.rules.ExpectedException;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,6 +9,8 @@ class AnimalTest {
 
     @Rule
     public DatabaseRule database = new DatabaseRule();
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     void animal_instantiatesCorrectly_true() {
@@ -53,5 +56,13 @@ class AnimalTest {
     public void find_returnsAnimalWithSameId_secondAnimal() {
         Animal secondAnimal = Animal.all().get(0);
         assertEquals(Animal.find(secondAnimal.id), secondAnimal);
+    }
+    @Test
+    public void save_throwsExceptionIfFieldsAreNull(){
+        exception.expect (IllegalArgumentException.class);
+        Animal animal = new Animal("Kangaroo");
+        try {
+            animal.save();
+        } catch (IllegalArgumentException exception){ }
     }
 }

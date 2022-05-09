@@ -1,5 +1,6 @@
 import org.sql2o.Connection;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Sightings {
@@ -8,6 +9,7 @@ public class Sightings {
     private String location;
     private String rangerName;
     public int id;
+    private Timestamp sitedAt;
 
     public Sightings(int animal_id, String location, String rangerName) {
         this.animal_id = animal_id;
@@ -29,6 +31,9 @@ public class Sightings {
     public String getRangerName() {
         return rangerName;
     }
+    public Timestamp getSitedAt(){
+        return sitedAt;
+    }
     @Override
     public boolean equals(Object testSighting2){
         if (!(testSighting2 instanceof Sightings)) {
@@ -43,7 +48,7 @@ public class Sightings {
     }
     public int save() {
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO sightings (animal_id, location, rangerName) VALUES (:animal_id, :location, :rangerName)";
+            String sql = "INSERT INTO sightings (animal_id, location, rangerName, sitedAt) VALUES (:animal_id, :location, :rangerName, now())";
             this.id = (int) con.createQuery(sql,true)
                     .addParameter("animal_id", this.animal_id)
                     .addParameter("location",this.location)

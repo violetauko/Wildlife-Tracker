@@ -3,14 +3,17 @@ import org.sql2o.Connection;
 import java.util.List;
 
 public class Animal {
-    public String name;
+    private String name;
+
     public int id;
+    public String type;
+    public static final String DATABASE_TYPE="non-endangeredAnimal";
+
 
     public Animal(String name) {
-        if (name.equals("")){
-            throw new IllegalArgumentException("Please enter an animal name.");
-        }
         this.name = name;
+
+        type= DATABASE_TYPE;
 
     }
 
@@ -21,6 +24,7 @@ public class Animal {
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -34,23 +38,30 @@ public class Animal {
             Animal newAnimal = (Animal) anotherAnimal;
             return this.getName().equals(newAnimal.getName());
 
+
         }
     }
 
     public int save(){
+        if (name.equals("")){
+            throw new IllegalArgumentException("Please enter an animal name.");
+        }
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO animals (name) VALUES (:name)";
+            String sql = "INSERT INTO animals (name, type) VALUES (:name, :type)";
             return (int) con.createQuery(sql)
                     .addParameter("name", this.name)
+                    .addParameter("type", this.type)
                     .executeUpdate()
                     .getKey();
         }
     }
 
     public static List<Animal> all() {
-        String sql = "SELECT * FROM animals";
+        String sql = "SELECT * FROM animals WHERE type='non-endangeredAnimal";
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(Animal.class);
+            return con.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Animal.class);
         }
     }
     public static Animal find(int id) {
@@ -58,6 +69,7 @@ public class Animal {
             String sql = "SELECT * FROM animals where id=:id";
             Animal animal = con.createQuery(sql)
                     .addParameter("id", id)
+                    .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Animal.class);
             return animal;
         }

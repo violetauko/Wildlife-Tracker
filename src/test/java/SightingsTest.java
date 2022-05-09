@@ -1,6 +1,10 @@
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -54,6 +58,15 @@ class SightingsTest {
     public void find_returnsSightingsWithSameId() {
         Sightings secondTestSighting = Sightings.all().get(0);
         assertEquals(Sightings.find(secondTestSighting.getId()), secondTestSighting);
+    }
+    @Test
+    void save_recordsTimeOfSightings(){
+        Sightings testSighting = new Sightings(1,"Zone A","Ellah");
+        testSighting.save();
+        Timestamp savedSightingTime = Sightings.find(testSighting.getId()).getSitedAt();
+        Timestamp rightNow =new Timestamp(new Date().getTime());
+        assertEquals(DateFormat.getDateTimeInstance().format(rightNow), DateFormat.getDateTimeInstance().format(savedSightingTime));
+
     }
 
 }

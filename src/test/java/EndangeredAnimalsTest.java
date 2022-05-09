@@ -55,10 +55,12 @@ class EndangeredAnimalsTest {
         assertEquals(EndangeredAnimals.find(secondEndangeredAnimal.getId()), secondEndangeredAnimal);
     }
     @Test
-    public void feed_throwsExceptionIfFoodLevelIsAtMaxValue(){
-        exception.expect (UnsupportedOperationException.class);
-        FireMonster testFireMonster = new FireMonster("Bubbles", 1);
-        testFireMonster.feed();
+    public void save_throwsExceptionIfFieldsAreNull(){
+        exception.expect (IllegalArgumentException.class);
+        EndangeredAnimals testAnimal = new EndangeredAnimals("Lion", "healthy", 10);
+        try {
+        testAnimal.save();
+        } catch (IllegalArgumentException exception){ }
     }
 
 }
