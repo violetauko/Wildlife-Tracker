@@ -29,19 +29,19 @@ public class DatabaseRule extends ExternalResource {
     @Test
     void name() {
         Animal animal = new Animal("Kangaroo");
-        id = animal.save();
+        animal.save();
         Animal secondAnimal = new Animal("Bear");
-        int id2 = secondAnimal.save();
+        secondAnimal.save();
         Animal animal2 = new Animal("Kangaroo");
-        int id3 = animal.save();
+        animal.save();
     }
 
     @Test
     void testSave() {
         EndangeredAnimals testAnimal = new EndangeredAnimals("Lion", "healthy", 10);
-        int id = testAnimal.save();
-        EndangeredAnimals secondEndangeredAnimals = new EndangeredAnimals("Tiger", "healthy", 12);
-        int id1 = secondEndangeredAnimals.save();
+        testAnimal.save();
+        EndangeredAnimals secondEndangeredAnimals = new EndangeredAnimals("Tiger", "ill", 12);
+        secondEndangeredAnimals.save();
     }
 
     @Test

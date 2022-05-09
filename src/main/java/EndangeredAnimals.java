@@ -55,12 +55,12 @@ public class EndangeredAnimals {
         }
 
     }
-    public int save() {
+    public void save() {
         try(Connection con = DB.sql2o.open()){
             if (name.equals("") || health.equals("") || Objects.equals(age, null)){
                 throw new IllegalArgumentException("Please enter all input fields.");
             }
-            String sql = "INSERT INTO endangeredAnimals (name, health, age, type) VALUES (:name, :health, :age, :type)";
+            String sql = "INSERT INTO animals (name, health, age, type) VALUES (:name, :health, :age, :type)";
             this.id = (int) con.createQuery(sql,true)
                     .addParameter("name", this.name)
                     .addParameter("health",this.health)
@@ -70,10 +70,9 @@ public class EndangeredAnimals {
                     .getKey();
 
         }
-        return id;
     }
     public static List<EndangeredAnimals> all() {
-        String sql = "SELECT * FROM animals WHERE type='endangeredAnimal";
+        String sql = "SELECT * FROM animals WHERE type='endangeredAnimal';";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
@@ -82,7 +81,7 @@ public class EndangeredAnimals {
     }
     public static EndangeredAnimals find(int id) {
         try(Connection con = DB.sql2o.open()) {
-            String sql = "SELECT * FROM endangeredAnimals where id=:id";
+            String sql = "SELECT * FROM animals where id=:id";
             EndangeredAnimals testAnimal = con.createQuery(sql)
                     .addParameter("id", id)
                     .throwOnMappingFailure(false)

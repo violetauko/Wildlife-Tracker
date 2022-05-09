@@ -2,7 +2,7 @@ import org.sql2o.Connection;
 
 import java.util.List;
 
-public class Animal {
+public class Animal implements DatabaseManagement {
     private String name;
 
     public int id;
@@ -41,14 +41,14 @@ public class Animal {
 
         }
     }
-
-    public int save(){
+    @Override
+    public void save(){
         if (name.equals("")){
             throw new IllegalArgumentException("Please enter an animal name.");
         }
         try(Connection con = DB.sql2o.open()){
             String sql = "INSERT INTO animals (name, type) VALUES (:name, :type)";
-            return (int) con.createQuery(sql)
+            con.createQuery(sql)
                     .addParameter("name", this.name)
                     .addParameter("type", this.type)
                     .executeUpdate()
@@ -56,8 +56,13 @@ public class Animal {
         }
     }
 
+    @Override
+    public void delete() {
+
+    }
+
     public static List<Animal> all() {
-        String sql = "SELECT * FROM animals WHERE type='non-endangeredAnimal";
+        String sql = "SELECT * FROM animals WHERE type='non-endangeredAnimal';";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
