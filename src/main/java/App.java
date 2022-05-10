@@ -51,11 +51,11 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //process form
-        post("/animal/new",(request,response)-> {
+        post("/endangered/new",(request,response)-> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String health = request.queryParams("health");
-            Integer age = Integer.parseInt(request.queryParams("age"));
+            Integer age = Integer.valueOf(request.queryParams("age"));
             try {
                 EndangeredAnimals endangered = new EndangeredAnimals(name, health, age);
                 endangered.save();
