@@ -62,6 +62,14 @@ class EndangeredAnimalsTest {
         testAnimal.save();
         } catch (IllegalArgumentException exception){ }
     }
+    @Test
+    public void deleteByID(){
+        EndangeredAnimals testAnimal = new EndangeredAnimals("Lion", "healthy", 10);
+        testAnimal.save();
+        testAnimal.delete();
+        assertEquals(null,EndangeredAnimals.find(testAnimal.getId()));
+
+    }
 
 }
 

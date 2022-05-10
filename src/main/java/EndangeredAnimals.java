@@ -3,9 +3,8 @@ import org.sql2o.Connection;
 import java.util.List;
 import java.util.Objects;
 
-public class EndangeredAnimals {
+public class EndangeredAnimals implements DatabaseManagement {
     public int id;
-//    private int id;
     private String name;
     private String health;
     private int age;
@@ -20,7 +19,7 @@ public class EndangeredAnimals {
     public static final String AGE_YOUNG="young";
     public static final String AGE_ADULT="adult";
 
-    public EndangeredAnimals(String name, String health, int age) {
+    public EndangeredAnimals (String name, String health, int age) {
         this.name = name;
         this.health = health;
         this.age = age;
@@ -55,6 +54,7 @@ public class EndangeredAnimals {
         }
 
     }
+    @Override
     public void save() {
         try(Connection con = DB.sql2o.open()){
             if (name.equals("") || health.equals("") || Objects.equals(age, null)){
@@ -71,12 +71,12 @@ public class EndangeredAnimals {
 
         }
     }
-    public static List<EndangeredAnimals> all() {
+    public static List<Animal> all() {
         String sql = "SELECT * FROM animals WHERE type='endangeredAnimal';";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
-                    .executeAndFetch(EndangeredAnimals.class);
+                    .executeAndFetch(Animal.class);
         }
     }
     public static EndangeredAnimals find(int id) {
@@ -87,6 +87,16 @@ public class EndangeredAnimals {
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(EndangeredAnimals.class);
             return testAnimal;
+        }
+    }
+    @Override
+    public void delete(){
+        try (Connection con=DB.sql2o.open()){
+            String sql = "DELETE FROM animals WHERE id=:id";
+            con.createQuery(sql)
+                    .addParameter("id",this.id)
+                    .executeUpdate();
+
         }
     }
 }

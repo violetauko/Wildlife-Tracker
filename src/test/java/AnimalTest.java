@@ -65,4 +65,12 @@ class AnimalTest {
             animal.save();
         } catch (IllegalArgumentException exception){ }
     }
+    @Test
+    public void deleteByID(){
+        Animal animal = new Animal("Kangaroo");
+        animal.save();
+        animal.delete();
+        assertEquals(null,Animal.find(animal.getId()));
+
+    }
 }
