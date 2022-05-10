@@ -1,0 +1,21 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="animal-detail">
+            <div class="shadow ">
+                <h2>Records</h2>
+                {{#each sightings}}
+                    <p>Anima_id: {{Anima_id}}</p>
+                    <p>Location: {{Location}}</p>
+                    <p>Ranger Name: {{rangerName}}</p>
+                    <p>Id: {{ id }}</p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="sighting-btn">
+            <a href="/sighting-form"><button class="btn">Record a new sighting</button></a>
+        </div>
+    </div>
+    {{/partial}}
+
+{{> layout.hbs}}
