@@ -1,0 +1,27 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="endangered-detail">
+            <div class="shadow ">
+                <h2>Records</h2>
+                {{#each animals}}
+                    <p>Name: {{name}}</p>
+                    <p>Health: {{health}}</p>
+                    <p>Age: {{age}}</p>
+                    <p>Type: {{type}}</p>
+                    <p>Id: {{ id }}</p>
+                {{/each}}
+            </div>
+        </div>
+        <div class="animal-btn">
+            <a href="/endangered-form"><button class="btn">Record a new animal</button></a>
+        </div>
+    </div>
+
+
+
+
+
+{{/partial}}
+
+{{> layout.hbs}}

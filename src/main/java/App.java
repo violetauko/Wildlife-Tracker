@@ -70,7 +70,7 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             List<Animal> allAnimals = Animal.all();
             model.put("animals",allAnimals);
-            return new ModelAndView(model, "animal-detail.hbs");
+            return new ModelAndView(model, "endangered-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
 //sightings form
