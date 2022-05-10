@@ -10,13 +10,19 @@
                 </div>
                 <div class="mb-3 ">
                 <h6>Health:</h6>
-                <input type="text" id="name" placeholder="Enter animal's health" name="name" required>
-                    <p>either healthy,ill or okay</p>
+                    <select id="health" name="health" type="text" class="form-control transparentInputFields">
+                        <option value="Healthy">Healthy</option>
+                        <option value="Okay">Okay</option>
+                        <option value="Ill">Ill</option>
+                    </select>
              </div>
                 <div class="mb-3">
                     <h6>Age:</h6>
-                    <input type="number" id="age"placeholder="Enter animal's  age" name="age" required>
-                    <p>either newborn,young,adult</p>
+                    <select id="age" name="age" type="text" class="form-control transparentInputFields">
+                        <option value="Newborn">Newborn</option>
+                        <option value="Young">Young</option>
+                        <option value="Adult">Adult</option>
+                    </select>
                 </div>
 
                 <input class="btn" type="submit">
