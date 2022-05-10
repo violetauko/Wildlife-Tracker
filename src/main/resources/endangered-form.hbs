@@ -1,0 +1,29 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="endangered-form">
+            <h1 class="mb-5">Enter Details</h1>
+            <form class="form" action="/endangered/new" method="post">
+                <div class="mb-3 ">
+                    <h6>Name:</h6>
+                    <input type="text" id="name" placeholder="Enter animal's name" name="name" required>
+                </div>
+                <div class="mb-3 ">
+                <h6>Health:</h6>
+                <input type="text" id="name" placeholder="Enter animal's health" name="name" required>
+                    <p>either healthy,ill or okay</p>
+             </div>
+                <div class="mb-3">
+                    <h6>Age:</h6>
+                    <input type="number" id="age"placeholder="Enter animal's  age" name="age" required>
+                    <p>either newborn,young,adult</p>
+                </div>
+
+                <input class="btn" type="submit">
+            </form>
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> layout.hbs}}
