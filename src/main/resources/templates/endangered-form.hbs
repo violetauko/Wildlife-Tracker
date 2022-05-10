@@ -8,19 +8,21 @@
                     <h6>Name:</h6>
                     <input type="text" id="name" placeholder="Enter animal's name" name="name" required>
                 </div>
-                <div class="mb-3 ">
-                <h6>Health:</h6>
-                    <select id="health" name="health" type="txt" class="form-control transparentInputFields">
-                        <option value=""></option>
-                        <option value="Healthy">Healthy</option>
-                        <option value="Okay">Okay</option>
-                        <option value="Ill">Ill</option>
-                    </select>
-             </div>
                 <div class="mb-3">
                     <h6>Age:</h6>
                     <input type="number" id="age" placeholder="Enter animal's age" name="age" required>
                 </div>
+                <div class="mb-3 ">
+                <h6>Health:</h6>
+                    <div class="mb-3">
+                        <input type="radio" id="healthy" name="health" value="healthy">
+                        <label for="healthy">Healthy</label><br>
+                        <input type="radio" id="okay" name="health" value="okay">
+                        <label for="okay">Okay</label><br>
+                        <input type="radio" id="ill" name="health" value="ill">
+                        <label for="ill">Ill</label>
+                    </div>
+             </div>
                 <div class="mb-3">
                     <input type="radio" id="newborn" name="age" value="newborn">
                     <label for="newborn">Newborn</label><br>

@@ -68,7 +68,7 @@ public class Animal implements DatabaseManagement {
     }
 
     public static List<Animal> all() {
-        String sql = "SELECT * FROM animals WHERE type='non-endangeredAnimal';";
+        String sql = "SELECT * FROM animals ";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
