@@ -47,9 +47,9 @@ public class DatabaseRule extends ExternalResource {
     @Test
     void testSave2() {
         Sightings testSighting = new Sightings(1, "Zone A", "Ellah");
-        id = testSighting.save();
+        testSighting.save();
         Sightings secondTestSighting = new Sightings(2, "Zone B", "Violet");
-        id = secondTestSighting.save();
+        secondTestSighting.save();
 
     }
 }

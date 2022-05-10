@@ -66,10 +66,10 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //display
-        get("/Endangered-detail",(req, res) ->{
+        get("/endangered-detail",(req, res) ->{
             Map<String, Object> model = new HashMap<>();
-            List<Animal> allAnimals = Animal.all();
-            model.put("animals",allAnimals);
+            List<EndangeredAnimals> endangereds = EndangeredAnimals.all();
+            model.put("endangereds",endangereds);
             return new ModelAndView(model, "endangered-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -85,9 +85,10 @@ public class App {
             Integer animal_id = Integer.parseInt(request.queryParams("animal_id"));
             String location = request.queryParams("location");
             String rangerName = request.queryParams("rangerName");
+            System.out.println(rangerName);
             try {
-                Sightings sighting = new Sightings(animal_id, location, rangerName);
-                sighting.save();
+                Sightings testSighting = new Sightings(animal_id, location, rangerName);
+                testSighting.save();
             } catch (IllegalArgumentException exception) {
                 System.out.println("Please enter all input fields.");
             }
@@ -99,8 +100,6 @@ public class App {
             Map<String, Object> model = new HashMap<>();
             List<Sightings> sightings = Sightings.all();
             model.put("sightings",sightings);
-            List<Animal> allAnimals =Animal.all();
-            model.put("animals",allAnimals);
             return new ModelAndView(model, "sighting-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
@@ -118,6 +117,14 @@ public class App {
             Sightings.find(Integer.parseInt(req.params(":id"))).delete();
             res.redirect("/sighting-detail");
             return null;
+        }, new HandlebarsTemplateEngine());
+
+        get("/animals/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("animal", Animal.find(Integer.parseInt(request.params(":id"))));
+            model.put("endangered", EndangeredAnimals.find(Integer.parseInt(request.params(":id"))));
+            model.put("Sightings", Sightings.class);
+            return new ModelAndView(model, "animal-detail.hbs");
         }, new HandlebarsTemplateEngine());
     }
 }

@@ -71,12 +71,12 @@ public class EndangeredAnimals implements DatabaseManagement {
 
         }
     }
-    public static List<Animal> all() {
+    public static List<EndangeredAnimals> all() {
         String sql = "SELECT * FROM animals WHERE type='endangeredAnimal';";
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .throwOnMappingFailure(false)
-                    .executeAndFetch(Animal.class);
+                    .executeAndFetch(EndangeredAnimals.class);
         }
     }
     public static EndangeredAnimals find(int id) {

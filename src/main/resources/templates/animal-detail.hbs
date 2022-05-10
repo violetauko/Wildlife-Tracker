@@ -2,15 +2,15 @@
 
     <div class="container-fluid">
         <div class="animal-detail">
-            <div class="shadow ">
+            <div>
                 <h2>Records</h2>
-                {{#each animals}}
+                <div class="shadow">
+                {{#each animals}}<br>
+                    <hr>
                     <p>Name: {{name}}</p>
-                    <p>Health: {{health}}</p>
-                    <p>Age: {{age}}</p>
-                    <p>Type: {{type}}</p>
                     <p>Id: {{ id }}</p>
                 {{/each}}
+                </div>
             </div>
         </div>
         <div class="animal-btn">
