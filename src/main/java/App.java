@@ -51,7 +51,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //process form
-        post("/endangered/new",(request,response)-> {
+        post("/animal/new",(request,response)-> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String health = request.queryParams("health");
