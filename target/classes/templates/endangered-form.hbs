@@ -1,0 +1,41 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="endangered-form">
+            <h1 class="mb-5">Enter Details</h1>
+            <form class="form" action="/endangered/new" method="post">
+                <div class="mb-3 ">
+                    <h6>Name:</h6>
+                    <input type="text" id="name" placeholder="Enter animal's name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <h6>Age:</h6>
+                    <input type="number" id="age" placeholder="Enter animal's age" name="age" required>
+                </div>
+                <div class="mb-3 ">
+                <h6>Health:</h6>
+                    <div class="mb-3">
+                        <input type="radio" id="healthy" name="health" value="healthy">
+                        <label for="healthy">Healthy</label><br>
+                        <input type="radio" id="okay" name="health" value="okay">
+                        <label for="okay">Okay</label><br>
+                        <input type="radio" id="ill" name="health" value="ill">
+                        <label for="ill">Ill</label>
+                    </div>
+             </div>
+                <div class="mb-3">
+                    <input type="radio" id="newborn" name="age" value="newborn">
+                    <label for="newborn">Newborn</label><br>
+                    <input type="radio" id="young" name="age" value="young">
+                    <label for="young">Young</label><br>
+                    <input type="radio" id="adult" name="age" value="adult">
+                    <label for="adult">Adult</label>
+                </div>
+                <input class="btn" type="submit">
+            </form>
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> layout.hbs}}

@@ -1,0 +1,27 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="animal-detail">
+            <div>
+                <h2>Details of Recorded animals</h2>
+                <div class="shadow">
+                {{#each animals}}<br>
+                    <hr>
+                    <p>Name: {{name}}</p>
+                    <p>Id: {{ id }}</p>
+                {{/each}}
+                </div>
+            </div>
+        </div>
+        <div class="animal-btn">
+            <a href="/animal-form"><button class="btn">Record a new animal</button></a>
+        </div>
+    </div>
+
+
+
+
+
+{{/partial}}
+
+{{> layout.hbs}}

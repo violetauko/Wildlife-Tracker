@@ -1,0 +1,18 @@
+{{#partial "content"}}
+
+    <div class="container-fluid">
+        <div class="animal-form">
+            <h1 class="mb-5">Enter com.Animal details</h1>
+            <form class="form" action="/animal/new" method="post">
+                <div class="mb-3 ">
+                    <h6>Name:</h6>
+                    <input type="text" id="name" placeholder="Enter animal's name" name="name" required>
+                </div>
+                <input class="btn" type="submit">
+            </form>
+        </div>
+    </div>
+
+
+{{/partial}}
+{{> layout.hbs}}
