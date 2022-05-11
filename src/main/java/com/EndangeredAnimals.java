@@ -92,7 +92,7 @@ public class EndangeredAnimals implements DatabaseManagement {
         }
     }
     @Override
-    public void delete(){
+    public void delete(int id){
         try (Connection con=DB.sql2o.open()){
             String sql = "DELETE FROM animals WHERE id=:id";
             con.createQuery(sql)

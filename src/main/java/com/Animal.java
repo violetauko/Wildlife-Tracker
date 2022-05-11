@@ -2,12 +2,15 @@ package com;
 
 import org.sql2o.Connection;
 
+import java.sql.*;
 import java.util.List;
 
 public class Animal implements DatabaseManagement {
     private String name;
 
     public int id;
+    public int age;
+    public String health;
     public String type;
     public static final String DATABASE_TYPE="non-endangeredAnimal";
 
@@ -49,17 +52,19 @@ public class Animal implements DatabaseManagement {
             throw new IllegalArgumentException("Please enter an animal name.");
         }
         try(Connection con = DB.sql2o.open()){
-            String sql = "INSERT INTO animals (name, type) VALUES (:name, :type)";
+           String sql = "INSERT INTO animals (name, type,age,health) VALUES (:name, :type, :age, :health)";
             con.createQuery(sql)
                     .addParameter("name", this.name)
                     .addParameter("type", this.type)
+                    .addParameter("age", this.age)
+                    .addParameter("health", this.health)
                     .executeUpdate()
                     .getKey();
         }
     }
 
     @Override
-    public void delete(){
+    public void delete(int id){
         try (Connection con= DB.sql2o.open()){
             String sql = "DELETE FROM animals WHERE id=:id";
             con.createQuery(sql)
@@ -71,9 +76,8 @@ public class Animal implements DatabaseManagement {
 
     public static List<Animal> all() {
         String sql = "SELECT * FROM animals ";
-        try(Connection con = DB.sql2o.open()) {
+        try (Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
-                    .throwOnMappingFailure(false)
                     .executeAndFetch(Animal.class);
         }
     }
