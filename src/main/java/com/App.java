@@ -18,6 +18,7 @@ public class App {
         }
         return 4567;
     }
+
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
@@ -29,13 +30,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //show a new animal form
-        get("/animal-form",(request, response) ->{
+        get("/animal-form", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "animal-form.hbs");
         }, new HandlebarsTemplateEngine());
 
 //process animal form
-        post("/animal/new",(req, res) ->{
+        post("/animal/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
             try {
@@ -56,13 +57,13 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //endangeredAnimals form
-        get("/endangered-form",(req, res) ->{
+        get("/endangered-form", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "endangered-form.hbs");
         }, new HandlebarsTemplateEngine());
 
 //process form
-        post("/endangered/new",(request,response)-> {
+        post("/endangered/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
             String health = request.queryParams("health");
@@ -73,25 +74,25 @@ public class App {
             } catch (IllegalArgumentException exception) {
                 System.out.println("Please enter all input fields.");
             }
-            return new ModelAndView(model,"success.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
 //display
-        get("/endangered-detail",(req, res) ->{
+        get("/endangered-detail", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<EndangeredAnimals> endangereds = EndangeredAnimals.all();
-            model.put("endangereds",endangereds);
+            model.put("endangereds", endangereds);
             return new ModelAndView(model, "endangered-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
 //sightings form
-        get("/sighting-form",(req, res) ->{
+        get("/sighting-form", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "sighting-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //process form
-        post("/sighting/new",(request,response)-> {
+        post("/sighting/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             Integer animal_id = Integer.parseInt(request.queryParams("animal_id"));
             String location = request.queryParams("location");
@@ -103,39 +104,16 @@ public class App {
             } catch (IllegalArgumentException exception) {
                 System.out.println("Please enter all input fields.");
             }
-            return new ModelAndView(model,"success.hbs");
+            return new ModelAndView(model, "success.hbs");
         }, new HandlebarsTemplateEngine());
 
         //display
-        get("/sighting-detail",(req, res) ->{
+        get("/sighting-detail", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Sightings> sightings = Sightings.all();
-            model.put("sightings",sightings);
+            model.put("sightings", sightings);
             return new ModelAndView(model, "sighting-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
-//delete an animal
-        get("/animal/:id/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            Animal.find(Integer.parseInt(req.params(":id"))).delete();
-            res.redirect("/animal-detail");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-//delete a sighting
-        get("/sighting/:id/delete", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            Sightings.find(Integer.parseInt(req.params(":id"))).delete();
-            res.redirect("/sighting-detail");
-            return null;
-        }, new HandlebarsTemplateEngine());
-
-        get("/animal/:id", (request, response) -> {
-            Map<String, Object> model = new HashMap<String, Object>();
-            model.put("animal", Animal.find(Integer.parseInt(request.params(":id"))));
-            model.put("endangered", EndangeredAnimals.find(Integer.parseInt(request.params(":id"))));
-            model.put("com.Sightings", Sightings.class);
-            return new ModelAndView(model, "animal-detail.hbs");
-        }, new HandlebarsTemplateEngine());
     }
 }
