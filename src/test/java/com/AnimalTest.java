@@ -72,7 +72,7 @@ class AnimalTest {
     public void deleteByID(){
         Animal animal = new Animal("Kangaroo");
         animal.save();
-        animal.delete();
+        animal.delete(animal.getId());
         assertEquals(null,Animal.find(animal.getId()));
 
     }
